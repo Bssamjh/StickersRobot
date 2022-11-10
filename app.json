@@ -9,7 +9,7 @@
       "manager",
       "Altron"
    ],   
-"repository": "https://github.com/ItZxSTaR/Altron",
+"repository": "https://github.com/ItZxSTaR/StickersRobot",
 "stack": "heroku-20",
 "addons": [
    {
