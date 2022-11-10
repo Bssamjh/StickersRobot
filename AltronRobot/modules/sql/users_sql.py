@@ -73,6 +73,42 @@ ChatMembers.__table__.create(checkfirst=True)
 
 INSERTION_LOCK = threading.RLock()
 
+
+def update_user(user_id, username, chat_id=None, chat_name=None):
+    with INSERTION_LOCK:
+        user = SESSION.query(Users).get(user_id)
+        if not user:
+            user = Users(user_id, username)
+            SESSION.add(user)
+            SESSION.flush()
+        else:
+            user.username = username
+
+        if not chat_id or not chat_name:
+            SESSION.commit()
+            return
+
+        chat = SESSION.query(Chats).get(str(chat_id))
+        if not chat:
+            chat = Chats(str(chat_id), chat_name)
+            SESSION.add(chat)
+            SESSION.flush()
+
+        else:
+            chat.chat_name = chat_name
+
+        member = (
+            SESSION.query(ChatMembers)
+            .filter(ChatMembers.chat == chat.chat_id, ChatMembers.user == user.user_id)
+            .first()
+        )
+        if not member:
+            chat_member = ChatMembers(chat.chat_id, user.user_id)
+            SESSION.add(chat_member)
+
+        SESSION.commit()
+
+
 def get_user_com_chats(user_id):
     try:
         chat_members = (
