@@ -53,8 +53,7 @@ if is_module_loaded(FILENAME):
 
                 if message.text and len(message.text) > 1:
                     fst_word = message.text.split(None, 1)[0]
-                    if len(fst_word) > 1 and any(
-                        fst_word.startswith("/"):
+                    if len(fst_word) > 1 and fst_word.startswith("/"):
                         args = message.text.split()[1:]
                         command = fst_word[1:].split("@")
                         command.append(message.bot.username)
