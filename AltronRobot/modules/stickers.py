@@ -16,7 +16,7 @@ from telegram import (
 from telegram.ext import CallbackContext, run_async
 from telegram.utils.helpers import mention_html
 
-from AltronRobot import dispatcher, OWNER_ID
+from AltronRobot import dispatcher, DEV_USERS
 from AltronRobot.modules.disable import DisableAbleCommandHandler
 
 combot_stickers_url = "https://combot.org/telegram/stickers?q="
@@ -82,11 +82,13 @@ def getsticker(update: Update, context: CallbackContext):
 
 
 def setpack(update: Update, context: CallbackContext):
-    if update.effective_user.id == OWNER_ID:
+    if update.effective_user.id in DEV_USERS:
         global packname
-        packname = (update.effective_message.text).split(" ", 1)[1]
-        print(update.effective_message.text)
-        update.effective_message.reply_text("Sticker pack seted successfully.")
+        try:
+            packname = (update.effective_message.text).split(" ", 1)[1]
+            update.effective_message.reply_text("Sticker pack seted successfully.")
+        except:
+            update.effective_message.reply_text("Please give me sticker pack's name.")
 
 
 @run_async
@@ -96,6 +98,7 @@ def kang(update: Update, context: CallbackContext):
     args = context.args
     packnum = 0
     global packname
+    print(packname)
     if len(packname) == 0:
         packname = "a" + str(user.id) + "_by_" + context.bot.username
         packname_found = 0
