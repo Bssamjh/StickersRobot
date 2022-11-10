@@ -84,7 +84,7 @@ def getsticker(update: Update, context: CallbackContext):
 def setpack(update: Update, context: CallbackContext):
     if update.effective_user.id == OWNER_ID:
         global packname
-        packname = update.effective_message.text
+        packname = (update.effective_message.text).split(" ", 1)[1]
         update.effective_message.reply_text("Sticker pack seted successfully.")
 
 
@@ -93,9 +93,9 @@ def kang(update: Update, context: CallbackContext):
     msg = update.effective_message
     user = update.effective_user
     args = context.args
+    packnum = 0
     global packname
     if len(packname) == 0:
-        packnum = 0
         packname = "a" + str(user.id) + "_by_" + context.bot.username
         packname_found = 0
         max_stickers = 120
