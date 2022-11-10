@@ -13,7 +13,7 @@ from telegram.ext import (
 from telegram.utils.helpers import escape_markdown
 
 from AltronRobot import dispatcher
-from AltronRobot.modules.helper_funcs.handlers import CMD_STARTERS, SpamChecker
+from AltronRobot.modules.helper_funcs.handlers import SpamChecker
 from AltronRobot.modules.helper_funcs.misc import is_module_loaded
 
 FILENAME = __name__.rsplit(".", 1)[-1]
@@ -54,7 +54,7 @@ if is_module_loaded(FILENAME):
                 if message.text and len(message.text) > 1:
                     fst_word = message.text.split(None, 1)[0]
                     if len(fst_word) > 1 and any(
-                        fst_word.startswith(start) for start in CMD_STARTERS
+                        fst_word.startswith("/")
                     ):
                         args = message.text.split()[1:]
                         command = fst_word[1:].split("@")
@@ -140,7 +140,7 @@ if is_module_loaded(FILENAME):
         chat = update.effective_chat
         if len(args) >= 1:
             disable_cmd = args[0]
-            if disable_cmd.startswith(CMD_STARTERS):
+            if disable_cmd.startswith("/"):
                 disable_cmd = disable_cmd[1:]
 
             if disable_cmd in set(DISABLE_CMDS + DISABLE_OTHER):
@@ -182,7 +182,7 @@ if is_module_loaded(FILENAME):
             failed_disabled_cmds = []
 
             for disable_cmd in command_list:
-                if disable_cmd.startswith(CMD_STARTERS):
+                if disable_cmd.startswith("/"):
                     disable_cmd = disable_cmd[1:]
 
                 if disable_cmd in set(DISABLE_CMDS + DISABLE_OTHER):
@@ -216,7 +216,7 @@ if is_module_loaded(FILENAME):
         chat = update.effective_chat
         if len(args) >= 1:
             enable_cmd = args[0]
-            if enable_cmd.startswith(CMD_STARTERS):
+            if enable_cmd.startswith("/"):
                 enable_cmd = enable_cmd[1:]
 
             if sql.enable_command(chat.id, enable_cmd):
@@ -257,7 +257,7 @@ if is_module_loaded(FILENAME):
             failed_enabled_cmds = []
 
             for enable_cmd in command_list:
-                if enable_cmd.startswith(CMD_STARTERS):
+                if enable_cmd.startswith("/"):
                     enable_cmd = enable_cmd[1:]
 
                 if sql.enable_command(chat.id, enable_cmd):
