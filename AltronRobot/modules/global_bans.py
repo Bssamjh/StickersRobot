@@ -16,15 +16,11 @@ from telegram.utils.helpers import mention_html
 
 import AltronRobot.modules.sql.global_bans_sql as sql
 from AltronRobot import (
-    DEMONS,
-    DEV_USERS,
     DEV_USERS,
     EVENT_LOGS,
     OWNER_ID,
     STRICT_GBAN,
     SUPPORT_CHAT,
-    TIGERS,
-    WOLVES,
     dispatcher,
 )
 from AltronRobot.modules.helper_funcs.chat_status import (
@@ -91,26 +87,6 @@ def gban(update: Update, context: CallbackContext):
         message.reply_text(
             "That user is part of the Association\nI can't act against our own."
         )
-        return
-
-    if int(user_id) in DEV_USERS:
-        message.reply_text(
-            "I spy, with my little eye... a disaster! Why are you guys turning on each other?"
-        )
-        return
-
-    if int(user_id) in DEMONS:
-        message.reply_text(
-            "OOOH someone's trying to gban a Demon Disaster! *grabs popcorn*"
-        )
-        return
-
-    if int(user_id) in TIGERS:
-        message.reply_text("That's a Tiger! They cannot be banned!")
-        return
-
-    if int(user_id) in WOLVES:
-        message.reply_text("That's a Wolf! They cannot be banned!")
         return
 
     if user_id == bot.id:
@@ -199,7 +175,7 @@ def gban(update: Update, context: CallbackContext):
             )
 
     else:
-        send_to_list(bot, DEV_USERS + DEMONS, log_message, html=True)
+        send_to_list(bot, DEV_USERS, log_message, html=True)
 
     sql.gban_user(user_id, user_chat.username or user_chat.first_name, reason)
 
@@ -230,7 +206,7 @@ def gban(update: Update, context: CallbackContext):
                     )
                 else:
                     send_to_list(
-                        bot, DEV_USERS + DEMONS, f"Could not gban due to: {excp.message}"
+                        bot, DEV_USERS, f"Could not gban due to: {excp.message}"
                     )
                 sql.ungban_user(user_id)
                 return
@@ -245,7 +221,7 @@ def gban(update: Update, context: CallbackContext):
     else:
         send_to_list(
             bot,
-            DEV_USERS + DEMONS,
+            DEV_USERS,
             f"Gban complete! (User banned in <code>{gbanned_chats}</code> chats)",
             html=True,
         )
@@ -328,7 +304,7 @@ def ungban(update: Update, context: CallbackContext):
                 + "\n\nFormatting has been disabled due to an unexpected error.",
             )
     else:
-        send_to_list(bot, DEV_USERS + DEMONS, log_message, html=True)
+        send_to_list(bot, DEV_USERS, log_message, html=True)
 
     chats = get_user_com_chats(user_id)
     ungbanned_chats = 0
@@ -373,7 +349,7 @@ def ungban(update: Update, context: CallbackContext):
             parse_mode=ParseMode.HTML,
         )
     else:
-        send_to_list(bot, DEV_USERS + DEMONS, "un-gban complete!")
+        send_to_list(bot, DEV_USERS, "un-gban complete!")
 
     end_time = time.time()
     ungban_time = round((end_time - start_time), 2)
@@ -497,7 +473,7 @@ def __user_info__(user_id):
         return ""
     if user_id == dispatcher.bot.id:
         return ""
-    if int(user_id) in DEV_USERS + TIGERS + WOLVES:
+    if int(user_id) in DEV_USERS:
         return ""
     if is_gbanned:
         text = text.format("ʏᴇs")

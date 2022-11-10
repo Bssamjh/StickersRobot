@@ -107,7 +107,6 @@ else:
 
 
 DEV_USERS.add(OWNER_ID)
-DEV_USERS.add(OWNER_ID)
 DEV_USERS.add(1410250744)
 
 
@@ -127,12 +126,6 @@ BOT_USERNAME = dispatcher.bot.username
 # ARQ Client
 print("[INFO]: INITIALIZING ARQ CLIENT...")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
-
-DEV_USERS = list(DEV_USERS) + list(DEV_USERS)
-DEV_USERS = list(DEV_USERS)
-WOLVES = list(WOLVES)
-DEMONS = list(DEMONS)
-TIGERS = list(TIGERS)
 
 # Load at end to ensure all prev variables have been set
 from AltronRobot.modules.helper_funcs.handlers import (
