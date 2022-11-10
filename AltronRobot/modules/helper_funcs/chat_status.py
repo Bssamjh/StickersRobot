@@ -7,7 +7,6 @@ from telegram import Chat, ChatMember, ParseMode, Update
 from telegram.ext import CallbackContext
 
 from AltronRobot import (
-    DEL_CMDS,
     DEV_USERS,
     SUPPORT_CHAT,
     dispatcher,
@@ -101,7 +100,7 @@ def dev_plus(func):
             return func(update, context, *args, **kwargs)
         elif not user:
             pass
-        elif DEL_CMDS and " " not in update.effective_message.text:
+        elif " " not in update.effective_message.text:
             try:
                 update.effective_message.delete()
             except:
@@ -126,7 +125,7 @@ def sudo_plus(func):
             return func(update, context, *args, **kwargs)
         elif not user:
             pass
-        elif DEL_CMDS and " " not in update.effective_message.text:
+        elif " " not in update.effective_message.text:
             try:
                 update.effective_message.delete()
             except:
@@ -148,7 +147,7 @@ def support_plus(func):
 
         if user and is_support_plus(chat, user.id):
             return func(update, context, *args, **kwargs)
-        elif DEL_CMDS and " " not in update.effective_message.text:
+        elif " " not in update.effective_message.text:
             try:
                 update.effective_message.delete()
             except:
@@ -187,7 +186,7 @@ def user_admin(func):
             return func(update, context, *args, **kwargs)
         elif not user:
             pass
-        elif DEL_CMDS and " " not in update.effective_message.text:
+        elif " " not in update.effective_message.text:
             try:
                 update.effective_message.delete()
             except:
@@ -213,7 +212,7 @@ def user_admin_no_reply(func):
             return func(update, context, *args, **kwargs)
         elif not user:
             pass
-        elif DEL_CMDS and " " not in update.effective_message.text:
+        elif " " not in update.effective_message.text:
             try:
                 update.effective_message.delete()
             except:

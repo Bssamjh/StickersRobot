@@ -19,8 +19,6 @@ class Config(object):
     # OPTIONAL
     ##List of id's - (not usernames) for developers who will have the same perms as the owner
     DEV_USERS = 
-
-    DEL_CMDS = True
     STRICT_GBAN = True
     WORKERS = (
         8  # Number of subthreads to use. Set as number of threads your processor uses

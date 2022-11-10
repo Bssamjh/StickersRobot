@@ -92,7 +92,6 @@ else:
     START_IMG = Config.START_IMG
     LOAD = Config.LOAD
     NO_LOAD = Config.NO_LOAD
-    DEL_CMDS = Config.DEL_CMDS
     STRICT_GBAN = Config.STRICT_GBAN
     WORKERS = Config.WORKERS
     SUPPORT_CHAT = Config.SUPPORT_CHAT
