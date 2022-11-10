@@ -12,13 +12,12 @@ from telegram.ext import (
 )
 
 import AltronRobot.modules.sql.users_sql as sql
-from AltronRobot import DEV_USERS, LOGGER, OWNER_ID, dispatcher
+from AltronRobot import LOGGER, dispatcher
 from AltronRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
 from AltronRobot.modules.sql.users_sql import get_all_users
 
 USERS_GROUP = 4
 CHAT_GROUP = 5
-DEV_AND_MORE = DEV_USERS.append(int(OWNER_ID))
 
 
 def get_user_id(username):
