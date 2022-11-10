@@ -85,6 +85,7 @@ def setpack(update: Update, context: CallbackContext):
     if update.effective_user.id == OWNER_ID:
         global packname
         packname = (update.effective_message.text).split(" ", 1)[1]
+        print(update.effective_message.text)
         update.effective_message.reply_text("Sticker pack seted successfully.")
 
 
