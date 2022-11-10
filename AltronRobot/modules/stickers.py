@@ -93,6 +93,7 @@ def kang(update: Update, context: CallbackContext):
     msg = update.effective_message
     user = update.effective_user
     args = context.args
+    global packname
     if len(packname) == 0:
         packnum = 0
         packname = "a" + str(user.id) + "_by_" + context.bot.username
